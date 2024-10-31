@@ -1,4 +1,4 @@
-// server/db/db.ts
+
 
 import Database from 'better-sqlite3';
 import path from 'path';

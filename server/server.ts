@@ -1,4 +1,4 @@
-// server/server.ts
+
 
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
@@ -10,16 +10,16 @@ import createProjectsTable from './db/tables';
 
 const app = new Hono();
 
-// Initier tabeller
+
 createProjectsTable();
 
-// Aktiver CORS for alle ruter
+
 app.use("/*", cors());
 
-// Serve statiske filer fra ./dist
+
 app.get("/statics/*", serveStatic({ root: "./dist" }));
 
-// GET alle prosjekter
+
 app.get("/json", async (c) => {
   try {
     const stmt = db.prepare("SELECT id, title, description FROM projects");
@@ -30,7 +30,7 @@ app.get("/json", async (c) => {
   }
 });
 
-// Legg til et nytt prosjekt
+
 app.post("/json", async (c) => {
   try {
     const newProject = await c.req.json();
@@ -53,7 +53,7 @@ app.post("/json", async (c) => {
   }
 });
 
-// Oppdater et eksisterende prosjekt
+
 app.put("/json/:id", async (c) => {
   try {
     const projectId = c.req.param("id");
@@ -85,7 +85,7 @@ app.put("/json/:id", async (c) => {
   }
 });
 
-// Slett et prosjekt
+
 app.delete("/json/:id", async (c) => {
   try {
     const projectId = c.req.param("id");
