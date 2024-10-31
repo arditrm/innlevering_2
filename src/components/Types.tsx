@@ -1,5 +1,8 @@
-export type Project = {
-    Title: string;
-    Description: string;
-    
-  }
+
+
+export interface Project {
+  id?: string; 
+  title: string;
+  description: string;
+  
+}

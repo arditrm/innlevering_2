@@ -1,4 +1,4 @@
-/* Global Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -12,14 +12,14 @@ body {
   line-height: 1.6;
 }
 
-/* Main Layout */
+
 main {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
 
-/* Header Styles */
+
 header {
   text-align: center;
   margin-bottom: 2rem;
@@ -37,7 +37,7 @@ header h1 {
   font-weight: bold;
 }
 
-/* Project Form Styles */
+
 section.CreateProject {
   background-color: #fff;
   border: 2px solid #00509e;
@@ -92,7 +92,7 @@ section.CreateProject input[type="submit"]:hover {
   background-color: #003d7a;
 }
 
-/* Project List Styles */
+
 section.DisplayProjects {
   background-color: #fff;
   padding: 2rem;

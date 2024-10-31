@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
+// src/components/ProjectForm.tsx
+
+import React, { useState, useEffect } from 'react';
 import { Project } from './Types';
 
 type ProjectFormProps = {
-  onSubmit: (newProject: Project) => void;
-}
+  onSubmit: (project: Project) => void;
+  initialProject?: Project | null;
+};
 
-const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit }) => {
-  const [projectName, setProjectName] = useState<string>('');
-  const [projectDescription, setProjectDescription] = useState<string>('');
+const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, initialProject }) => {
+  const [projectName, setProjectName] = useState<string>(initialProject?.title || '');
+  const [projectDescription, setProjectDescription] = useState<string>(initialProject?.description || '');
+
+  useEffect(() => {
+    if (initialProject) {
+      setProjectName(initialProject.title);
+      setProjectDescription(initialProject.description);
+    } else {
+      setProjectName('');
+      setProjectDescription('');
+    }
+  }, [initialProject]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newProject = {
-      Title: projectName,
-      Description: projectDescription,
-    };
+
+    if (projectName.trim() === '' || projectDescription.trim() === '') {
+      alert('Title and Description cannot be empty.');
+      return;
+    }
+
+    const newProject: Project = initialProject
+      ? {
+          id: initialProject.id,
+          title: projectName,
+          description: projectDescription,
+        }
+      : {
+          title: projectName,
+          description: projectDescription,
+        };
+
     onSubmit(newProject);
-    setProjectName('');
-    setProjectDescription('');
+
+    if (!initialProject) {
+      setProjectName('');
+      setProjectDescription('');
+    }
   };
 
   return (
@@ -40,13 +69,12 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit }) => {
           value={projectDescription}
           onChange={(e) => setProjectDescription(e.target.value)}
           required
-        /><br />
+        ></textarea><br />
 
-        <input type="submit" value="Create Project" /><br />
+        <input type="submit" value={initialProject ? "Save Changes" : "Create Project"} /><br />
       </form>
     </section>
   );
 };
 
 export default ProjectForm;
-
